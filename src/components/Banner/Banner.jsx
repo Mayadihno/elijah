@@ -42,7 +42,7 @@ const Banner = () => {
           {data.map((item) => (
             <>
               <SwiperSlide key={item.id}>
-                <div className=" w-full md:h-[80vh] h-full md:mt-0.5 mt-16">
+                <div className=" w-full md:h-[80vh] h-full md:mt-0.5 mt-14">
                   <div className="flex justify-between items-center relative">
                     <img src={item.image} className="w-full" alt="" />
                     <div className="absolute top-0 left-0 w-full h-full bg-[#000000] opacity-30"></div>

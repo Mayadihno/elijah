@@ -31,6 +31,11 @@ const Header = () => {
     navigate("/", { replace: true });
     window.location.reload();
   };
+
+  const handleClick = () => {
+    setMobile(true);
+  };
+
   return (
     <React.Fragment>
       <div
@@ -198,7 +203,7 @@ const Header = () => {
         </div>
         {/* mobile navbar */}
         <div className="w-full h-[60px] fixed z-5 bg-[#9C27B0] top-0 left-0 shadow-sm 800px:hidden">
-          <div className="flex items-center w-full justify-between px-2">
+          <div className="flex items-center justify-between px-2">
             <div className="flex flex-col items-center pt-2">
               <img
                 src="https://cijm.org.gr/wp-content/uploads/2021/08/cijm-logo-symbol.png"
@@ -209,14 +214,12 @@ const Header = () => {
                 FunOlympics
               </span>
             </div>
-            <div className="">
-              <BiMenuAltLeft
-                size={40}
-                className="ml-1 mt-2"
-                onClick={() => setMobile(true)}
-                color="white"
-              />
-            </div>
+            <BiMenuAltLeft
+              size={40}
+              className="ml-1 mt-2"
+              onClick={handleClick}
+              color="white"
+            />
           </div>
           {/* toggle hamburger menu */}
           {mobile && (
