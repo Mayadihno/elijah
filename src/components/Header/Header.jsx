@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase/config";
 import { clearUserData } from "../../redux/slice";
+import { toast } from "react-toastify";
 const Header = () => {
   const { userData, phoneUser } = useSelector((state) => state.user);
   const [active, setActive] = useState(1);
@@ -35,6 +36,13 @@ const Header = () => {
   const handleClick = () => {
     setMobile(true);
   };
+  const handleEvent = () => {
+    if (phoneUser || userData) {
+      toast.warning("So sorry no live game right now. Please check later");
+    } else {
+      toast.error("Please Login to live stream matches");
+    }
+  };
 
   return (
     <React.Fragment>
@@ -62,6 +70,7 @@ const Header = () => {
                 Payris
               </NavLink>
               <NavLink
+                onClick={handleEvent}
                 className={`${
                   active === 2
                     ? "font-Roboto font-[700] text-blue-800 italic text-[18px]"
@@ -71,7 +80,7 @@ const Header = () => {
                 Live Stream
               </NavLink>
               <NavLink
-                to={"/about"}
+                to={"/sport"}
                 className={`${
                   active === 3
                     ? "font-Roboto font-[700] text-blue-800 italic text-[18px]"
@@ -82,7 +91,7 @@ const Header = () => {
                 Sports
               </NavLink>
               <NavLink
-                to={"/about"}
+                to={"/news"}
                 className={`${
                   active === 4
                     ? "font-Roboto font-[700] text-blue-800 italic text-[18px]"
@@ -250,6 +259,21 @@ const Header = () => {
                     Home
                   </NavLink>
                   <NavLink
+                    to={"/sport"}
+                    className={`${
+                      active === 8
+                        ? "font-Roboto font-[700] text-blue-800 italic text-[18px]"
+                        : "font-Poppins font-[600] text-[14px] tracking-wide hover:border-b-2"
+                    }`}
+                    onClick={() => {
+                      setActive(8);
+                      setMobile(false);
+                    }}
+                  >
+                    Sports
+                  </NavLink>
+                  <NavLink
+                    onClick={handleEvent}
                     className={`${
                       active === 2
                         ? "bg-gray-400 px-2 py-1 rounded-[4px] font-Roboto font-[700]"
@@ -272,50 +296,43 @@ const Header = () => {
                   >
                     About Event
                   </NavLink>
-                  <>
-                    <NavLink
-                      to={"/fixtures"}
-                      className={`${
-                        active === 4
-                          ? "bg-gray-400 px-2 py-1 rounded-[4px] font-Roboto font-[700]"
-                          : "font-Poppins font-[600] tracking-wide hover:border-b-2 hover:text-red-600"
-                      }`}
-                      onClick={() => {
-                        setActive(4);
-                        setMobile(false);
-                      }}
-                    >
-                      Fixtures
-                    </NavLink>
-                    <NavLink
-                      to={"/gallery"}
-                      className={`${
-                        active === 5
-                          ? "bg-gray-400 px-2 py-1 rounded-[4px] font-Roboto font-[700]"
-                          : "font-Poppins font-[600] tracking-wide hover:border-b-2 hover:text-red-600"
-                      }`}
-                      onClick={() => {
-                        setActive(5);
-                        setMobile(false);
-                      }}
-                    >
-                      Gallery
-                    </NavLink>
-                    <NavLink
-                      to={"/video"}
-                      className={`${
-                        active === 6
-                          ? "bg-gray-400 px-2 py-1 rounded-[4px] font-Roboto font-[700]"
-                          : "font-Poppins font-[600] tracking-wide hover:border-b-2 hover:text-red-600"
-                      }`}
-                      onClick={() => {
-                        setActive(6);
-                        setMobile(false);
-                      }}
-                    >
-                      Videos
-                    </NavLink>
-                  </>
+                  {phoneUser && (
+                    <>
+                      <NavLink
+                        to={"/fixtures"}
+                        className={`${
+                          active === 4
+                            ? "bg-gray-400 px-2 py-1 rounded-[4px] font-Roboto font-[700]"
+                            : "font-Poppins font-[600] tracking-wide hover:border-b-2 hover:text-red-600"
+                        }`}
+                        onClick={() => setActive(4)}
+                      >
+                        Fixtures
+                      </NavLink>
+                      <NavLink
+                        to={"/gallery"}
+                        className={`${
+                          active === 5
+                            ? "bg-gray-400 px-2 py-1 rounded-[4px] font-Roboto font-[700]"
+                            : "font-Poppins font-[600] tracking-wide hover:border-b-2 hover:text-red-600"
+                        }`}
+                        onClick={() => setActive(5)}
+                      >
+                        Gallery
+                      </NavLink>
+                      <NavLink
+                        to={"/video"}
+                        className={`${
+                          active === 6
+                            ? "bg-gray-400 px-2 py-1 rounded-[4px] font-Roboto font-[700]"
+                            : "font-Poppins font-[600] tracking-wide hover:border-b-2 hover:text-red-600"
+                        }`}
+                        onClick={() => setActive(6)}
+                      >
+                        Videos
+                      </NavLink>
+                    </>
+                  )}
                   {userData?.formDataCopy?.role === "admin" ? (
                     <NavLink
                       to={"/dashboard"}

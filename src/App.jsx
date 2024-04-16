@@ -15,6 +15,8 @@ import Dashboard from "./Admin/Dashboard";
 import Gallery from "./Gallery/Gallery";
 import Video from "./Video/Video";
 import Booked from "./Users/Booked";
+import Sports from "./components/Sport/Sports";
+import Allnews from "./components/News/Allnews";
 
 function App() {
   return (
@@ -23,6 +25,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/sport" element={<Sports />} />
+        <Route path="/news" element={<Allnews />} />
         <Route path="/register" element={<Register />} />
         <Route path="/forget-password" element={<ForgetPass />} />
         <Route path="/admin" element={<AdminLogin />} />

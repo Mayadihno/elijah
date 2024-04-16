@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import React from "react";
+import React, { useState } from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Button from "@mui/material/Button";
 import { toast } from "react-toastify";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import styles from "../styles/styles";
 
 const Booked = () => {
+  const [amount, setAmount] = useState(1);
   const bookedGames = JSON.parse(localStorage.getItem("bookedGames")) || [];
   const navigate = useNavigate();
   const handleRemove = (game) => {
@@ -38,7 +39,12 @@ const Booked = () => {
     }
     return accumulator;
   }, 0);
-  let total = sumOfOddOdds * 100;
+  let total = 1;
+  if (amount < 1) {
+    toast.error("Invalid amount");
+  } else {
+    total = sumOfOddOdds * amount;
+  }
 
   const columns = [
     { field: "id", headerName: "Fixture ID", minWidth: 50, flex: 0.7 },
@@ -128,7 +134,26 @@ const Booked = () => {
               autoHeight
               rowHeight={50}
             />
-            <div className="button flex justify-end mt-5 mr-2">
+            <div className="button flex justify-end space-x-4 mt-5 mr-2">
+              <div className="">
+                <label
+                  htmlFor="email"
+                  className="block text-sm font-medium text-gray-700"
+                >
+                  Amount <span className="text-red-500">*</span>
+                </label>
+                <div className="mt-1">
+                  <input
+                    type="number"
+                    required
+                    placeholder="$1000"
+                    autoComplete="email"
+                    value={amount}
+                    onChange={(e) => setAmount(e.target.value)}
+                    className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-[#9C27B0] focus:border-[#9C27B0] sm:text-sm"
+                  />
+                </div>
+              </div>
               <Button
                 variant="contained"
                 color="secondary"
